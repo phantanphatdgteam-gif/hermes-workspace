@@ -241,7 +241,7 @@ export function ClaudeOnboarding() {
         setBackendMessage(
           data.capabilities.sessions
             ? 'Backend connected. Core chat works, and Hermes Agent gateway enhancements are available.'
-            : 'Backend connected. Core chat is ready.',
+            : 'Đã kết nối backend. Chat lõi sẵn sàng.',
         )
         return
       }
@@ -255,7 +255,7 @@ export function ClaudeOnboarding() {
       }
 
       setBackendStatus('error')
-      setBackendMessage('No compatible backend detected yet.')
+      setBackendMessage('Chưa phát hiện backend tương thích nào.')
     } catch (err) {
       setBackendInfo(null)
       setBackendStatus('error')
@@ -528,10 +528,11 @@ export function ClaudeOnboarding() {
                   filter: 'drop-shadow(0 8px 24px rgba(99,102,241,0.3))',
                 }}
               />
-              <h2 className="text-xl font-bold">Welcome to Hermes Workspace</h2>
+              <h2 className="text-xl font-bold">Chào mừng đến với Hermes Workspace</h2>
               <p className="text-sm" style={mutedStyle}>
-                Works with any OpenAI-compatible backend. Hermes Agent gateway APIs
-                unlock sessions, memory, skills, and other extras automatically.
+                Hoạt động với mọi backend tương thích OpenAI. Các API gateway
+                của Hermes Agent tự mở khóa sessions, bộ nhớ, kỹ năng và các
+                tính năng nâng cao.
               </p>
               <button
                 onClick={() => {
@@ -540,10 +541,10 @@ export function ClaudeOnboarding() {
                 }}
                 className="w-full rounded-xl bg-accent-500 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-600"
               >
-                Connect Backend
+                Kết nối backend
               </button>
               <button onClick={complete} className="text-xs" style={mutedStyle}>
-                Skip setup
+                Bỏ qua thiết lập
               </button>
             </div>
           )}
@@ -551,7 +552,7 @@ export function ClaudeOnboarding() {
           {step === 'connect' && (
             <div className="space-y-4 text-center">
               <div className="text-4xl">🔌</div>
-              <h2 className="text-lg font-bold">Connect Your Backend</h2>
+              <h2 className="text-lg font-bold">Kết nối backend</h2>
               <p className="text-sm" style={mutedStyle}>
                 Start by verifying that Hermes Workspace can reach your
                 OpenAI-compatible backend.
@@ -645,12 +646,12 @@ export function ClaudeOnboarding() {
           {step === 'provider' && (
             <div className="space-y-4">
               <h2 className="text-center text-lg font-bold">
-                Choose Provider and Model
+                Chọn nhà cung cấp và mô hình
               </h2>
               <p className="text-center text-xs" style={mutedStyle}>
                 {canEditConfig
-                  ? 'Save provider settings here, then choose a model before testing chat.'
-                  : 'This backend manages provider settings outside Hermes Workspace. Confirm the model you expect to use, then test chat.'}
+                  ? 'Lưu cấu hình nhà cung cấp tại đây, sau đó chọn mô hình trước khi thử chat.'
+                  : 'Backend này quản lý cấu hình nhà cung cấp bên ngoài Hermes Workspace. Xác nhận mô hình muốn dùng, rồi thử chat.'}
               </p>
 
               <div className="rounded-xl p-3 text-xs" style={cardStyle}>
@@ -942,7 +943,7 @@ export function ClaudeOnboarding() {
                     }
                     className="flex-1 rounded-xl bg-indigo-600 py-3 text-sm font-semibold text-white transition-colors hover:bg-indigo-700 disabled:opacity-50"
                   >
-                    {saving ? 'Saving...' : 'Save Settings'}
+                    {saving ? 'Đang lưu...' : 'Lưu cấu hình'}
                   </button>
                 ) : null}
                 <button
@@ -976,10 +977,10 @@ export function ClaudeOnboarding() {
           {step === 'test' && (
             <div className="space-y-4 text-center">
               <div className="text-4xl">🧪</div>
-              <h2 className="text-lg font-bold">Test Chat</h2>
+              <h2 className="text-lg font-bold">Thử chat</h2>
               <p className="text-sm" style={mutedStyle}>
-                Verify that core chat works first. Enhanced Hermes Agent features are
-                optional and appear automatically when supported.
+                Xác minh chat lõi hoạt động trước. Các tính năng nâng cao của
+                Hermes Agent là tùy chọn và hiển thị tự động khi được hỗ trợ.
               </p>
 
               <div
@@ -1094,12 +1095,12 @@ export function ClaudeOnboarding() {
           {step === 'done' && (
             <div className="space-y-4 text-center">
               <div className="text-5xl">🎉</div>
-              <h2 className="text-xl font-bold">Workspace Ready</h2>
+              <h2 className="text-xl font-bold">Workspace đã sẵn sàng</h2>
               <p className="text-sm" style={mutedStyle}>
-                Core chat is set up.{' '}
+                Chat lõi đã được cấu hình.{' '}
                 {enhancedFeatures.length > 0
-                  ? 'This backend also exposes Hermes Agent gateway enhancements.'
-                  : 'If you later connect a Hermes Agent gateway, enhanced features unlock automatically.'}
+                  ? 'Backend này còn hỗ trợ các tính năng nâng cao của Hermes Agent gateway.'
+                  : 'Khi anh/chị kết nối thêm Hermes Agent gateway, các tính năng nâng cao sẽ tự bật.'}
               </p>
               <div
                 className="grid grid-cols-3 gap-2 text-xs"
@@ -1107,7 +1108,7 @@ export function ClaudeOnboarding() {
               >
                 <div className="rounded-xl p-2" style={cardStyle}>
                   <div className="mb-1 text-lg">💬</div>
-                  <div>Chat Ready</div>
+                  <div>Chat sẵn sàng</div>
                 </div>
                 <div className="rounded-xl p-2" style={cardStyle}>
                   <div className="mb-1 text-lg">🔗</div>
