@@ -108,7 +108,7 @@ export function OnboardingWizard() {
             <button
               onClick={skip}
               className="absolute right-4 top-4 z-10 rounded-full p-2 text-primary-500 transition-colors hover:bg-primary-100 hover:text-primary-700"
-              aria-label="Skip onboarding"
+              aria-label="Bỏ qua hướng dẫn"
             >
               <HugeiconsIcon icon={Cancel01Icon} className="size-5" />
             </button>
@@ -190,7 +190,7 @@ export function OnboardingWizard() {
                       index < currentStep && 'hover:bg-primary-400',
                       index > currentStep && 'cursor-not-allowed opacity-50',
                     )}
-                    aria-label={`Go to step ${index + 1}`}
+                    aria-label={`Đến bước ${index + 1}`}
                   />
                 ))}
               </div>
@@ -204,7 +204,7 @@ export function OnboardingWizard() {
                   className={cn('gap-2', isFirstStep && 'invisible')}
                 >
                   <HugeiconsIcon icon={ArrowLeft01Icon} className="size-4" />
-                  Back
+                  Quay lại
                 </Button>
 
                 <span className="text-sm text-primary-500">
@@ -217,7 +217,7 @@ export function OnboardingWizard() {
                     onClick={handleComplete}
                     className="gap-2 bg-accent-500 px-6 py-2.5 text-base font-medium shadow-lg shadow-accent-500/25 ring-1 ring-accent-400/20 transition-all hover:bg-accent-600 hover:shadow-xl hover:shadow-accent-500/30"
                   >
-                    {step.completeLabel ?? 'Get Started'}
+                    {step.completeLabel ?? 'Bắt đầu'}
                     <HugeiconsIcon icon={ArrowRight01Icon} className="size-5" />
                   </Button>
                 ) : (
@@ -227,7 +227,7 @@ export function OnboardingWizard() {
                     disabled={!canProceed}
                     className="gap-2"
                   >
-                    {step.nextLabel ?? 'Next'}
+                    {step.nextLabel ?? 'Tiếp theo'}
                     <HugeiconsIcon icon={ArrowRight01Icon} className="size-4" />
                   </Button>
                 )}

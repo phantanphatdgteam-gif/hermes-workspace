@@ -32,16 +32,16 @@ export type OnboardingStep = {
 export const ONBOARDING_STEPS: Array<OnboardingStep> = [
   {
     id: 'welcome',
-    title: 'Welcome to Hermes Workspace',
-    description: 'Your AI workspace powered by Hermes Agent',
+    title: 'Chào mừng đến với Hermes Workspace',
+    description: 'Không gian làm việc AI của anh/chị, vận hành bởi Hermes Agent',
     icon: Home01Icon,
     iconBg: 'bg-orange-500',
-    nextLabel: 'Get Started',
+    nextLabel: 'Bắt đầu',
   },
   {
     id: 'connection-check',
-    title: 'Connection Check',
-    description: 'Verify that Hermes Agent is running before you begin.',
+    title: 'Kiểm tra kết nối',
+    description: 'Xác nhận Hermes Agent đang chạy trước khi anh/chị bắt đầu.',
     icon: Plug01Icon,
     iconBg: 'bg-emerald-500',
     component: ConnectionCheckStep,
@@ -49,20 +49,20 @@ export const ONBOARDING_STEPS: Array<OnboardingStep> = [
   },
   {
     id: 'model-configuration',
-    title: 'Model Configuration',
-    description: 'Review your current provider and model setup.',
+    title: 'Cấu hình mô hình',
+    description: 'Kiểm tra nhà cung cấp và mô hình hiện tại.',
     icon: Settings01Icon,
     iconBg: 'bg-cyan-500',
     component: ModelConfigurationStep,
   },
   {
     id: 'ready',
-    title: 'You are all set!',
+    title: 'Mọi thứ đã sẵn sàng!',
     description:
-      'Start chatting with your agent. Try asking it to help with code, research, or anything else.',
+      'Hãy bắt đầu trò chuyện với tác nhân. Thử nhờ tác nhân hỗ trợ về code, nghiên cứu, hoặc bất kỳ điều gì khác.',
     icon: CheckmarkCircle02Icon,
     iconBg: 'bg-emerald-500',
-    completeLabel: 'Start Chatting',
+    completeLabel: 'Bắt đầu trò chuyện',
   },
 ]
 

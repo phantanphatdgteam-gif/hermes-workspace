@@ -51,14 +51,14 @@ export function ConnectionCheckStep({
       if (!connected) {
         setLastError(
           data.error === 'server_timeout'
-            ? 'Hermes Agent did not respond in time.'
-            : 'Hermes Agent is not reachable yet.',
+            ? 'Hermes Agent không phản hồi kịp thời gian.'
+            : 'Chưa kết nối được tới Hermes Agent.',
         )
       }
     } catch (error) {
       setStatus('disconnected')
       setLastError(
-        error instanceof Error ? error.message : 'Connection check failed.',
+        error instanceof Error ? error.message : 'Kiểm tra kết nối thất bại.',
       )
     }
   }, [])
@@ -97,26 +97,26 @@ export function ConnectionCheckStep({
       </div>
 
       <h2 className="mb-3 text-2xl font-semibold text-primary-900">
-        Connection Check
+        Kiểm tra kết nối
       </h2>
 
       <p className="mb-6 max-w-md text-base leading-relaxed text-primary-600">
         {status === 'connected'
-          ? 'Your backend is reachable and ready for setup.'
+          ? 'Backend đã kết nối và sẵn sàng cấu hình.'
           : status === 'checking'
-            ? 'Checking whether an OpenAI-compatible backend is available...'
-            : 'No compatible backend is connected yet.'}
+            ? 'Đang kiểm tra backend tương thích OpenAI...'
+            : 'Chưa có backend tương thích nào kết nối.'}
       </p>
 
       {status === 'disconnected' && (
         <div className="mb-6 w-full rounded-2xl border border-red-200 bg-red-50 p-4 text-left">
           <p className="mb-3 text-sm font-medium text-red-700">
-            Make sure the Hermes Agent HTTP API server is enabled:
+            Hãy đảm bảo máy chủ HTTP API của Hermes Agent đang được bật:
           </p>
           <div className="space-y-2">
             <div>
               <p className="text-xs font-medium text-red-700 mb-1">
-                1. Enable the API server in <code>~/.hermes/.env</code>:
+                1. Bật API server trong <code>~/.hermes/.env</code>:
               </p>
               <code className="block overflow-x-auto rounded-lg bg-red-100 px-3 py-2 text-xs text-red-900">
                 API_SERVER_ENABLED=true
@@ -124,7 +124,7 @@ export function ConnectionCheckStep({
             </div>
             <div>
               <p className="text-xs font-medium text-red-700 mb-1">
-                2. Restart the gateway:
+                2. Khởi động lại gateway:
               </p>
               <code className="block overflow-x-auto rounded-lg bg-red-100 px-3 py-2 text-xs text-red-900">
                 cd hermes-agent && hermes --gateway
@@ -132,8 +132,8 @@ export function ConnectionCheckStep({
             </div>
           </div>
           <p className="mt-3 text-xs text-red-700">
-            Or point <code>HERMES_API_URL</code> at any OpenAI-compatible
-            backend (Ollama, LiteLLM, vLLM, etc.).
+            Hoặc trỏ <code>HERMES_API_URL</code> tới bất kỳ backend tương thích
+            OpenAI (Ollama, LiteLLM, vLLM, v.v.).
           </p>
           {lastError && (
             <p className="mt-3 text-xs text-red-700">{lastError}</p>
@@ -147,7 +147,7 @@ export function ConnectionCheckStep({
         className="gap-2"
       >
         <HugeiconsIcon icon={RefreshIcon} className="size-4" />
-        Check Connection
+        Kiểm tra kết nối
       </Button>
     </div>
   )
@@ -209,18 +209,19 @@ export function ModelConfigurationStep({
       </div>
 
       <h2 className="mb-3 text-2xl font-semibold text-primary-900">
-        Model Configuration
+        Cấu hình mô hình
       </h2>
 
       <p className="mb-6 max-w-md text-base leading-relaxed text-primary-600">
-        Core chat works with any OpenAI-compatible backend. Hermes Agent gateway APIs
-        make provider and model setup editable from the workspace.
+        Chat lõi hoạt động với mọi backend tương thích OpenAI. Các API gateway
+        của Hermes Agent cho phép chỉnh sửa nhà cung cấp và mô hình ngay từ
+        workspace.
       </p>
 
       <div className="mb-6 w-full rounded-2xl border border-primary-200 bg-primary-100/70 p-4 text-left">
         {status === 'loading' && (
           <p className="text-sm text-primary-600">
-            Loading current provider and model information...
+            Đang tải thông tin nhà cung cấp và mô hình hiện tại...
           </p>
         )}
 
@@ -231,17 +232,17 @@ export function ModelConfigurationStep({
               className="mt-0.5 size-5 shrink-0"
             />
             <p className="text-sm">
-              Could not load editable backend configuration right now. You can
-              still continue if chat works and update settings where your
-              backend manages them.
+              Hiện chưa tải được cấu hình backend có thể chỉnh sửa. Anh/chị vẫn
+              có thể tiếp tục nếu chat hoạt động và cập nhật cấu hình ở nơi
+              backend đang quản lý.
             </p>
           </div>
         )}
 
         {status === 'ready' && hasModel && (
           <p className="text-sm font-medium text-primary-900">
-            Current model: <span className="text-accent-700">{model}</span> via{' '}
-            <span className="text-accent-700">{provider}</span>
+            Mô hình hiện tại: <span className="text-accent-700">{model}</span>{' '}
+            qua <span className="text-accent-700">{provider}</span>
           </p>
         )}
 
@@ -252,9 +253,9 @@ export function ModelConfigurationStep({
               className="mt-0.5 size-5 shrink-0"
             />
             <p className="text-sm">
-              No model is reported yet. If your backend manages models
-              externally, finish setup there and use the chat test to verify the
-              connection.
+              Chưa có mô hình nào được báo cáo. Nếu backend của anh/chị quản lý
+              mô hình từ bên ngoài, hãy hoàn tất cấu hình ở đó và dùng phần thử
+              chat để kiểm tra kết nối.
             </p>
           </div>
         )}
@@ -265,7 +266,7 @@ export function ModelConfigurationStep({
         className={buttonVariants({ variant: 'outline', className: 'gap-2' })}
       >
         <HugeiconsIcon icon={Settings01Icon} className="size-4" />
-        Open Provider Settings
+        Mở cấu hình nhà cung cấp
       </Link>
     </div>
   )
