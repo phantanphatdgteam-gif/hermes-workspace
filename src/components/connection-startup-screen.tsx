@@ -24,25 +24,25 @@ function getSetupSteps(
 ): Array<{ title: string; command: string; note?: string }> {
   return [
     {
-      title: 'Use any OpenAI-compatible backend',
+      title: 'Dùng backend tương thích OpenAI bất kỳ',
       command: 'Set HERMES_API_URL to your backend base URL',
-      note: 'Portable chat works with any backend that exposes /v1/chat/completions (Ollama, LiteLLM, vLLM, etc.)',
+      note: 'Chat di động hoạt động với mọi backend có /v1/chat/completions (Ollama, LiteLLM, vLLM, v.v.)',
     },
     {
-      title: 'Optional: install Hermes Agent locally',
+      title: 'Tùy chọn: cài Hermes Agent cục bộ',
       command:
         'curl -fsSL https://raw.githubusercontent.com/NousResearch/hermes-agent/main/scripts/install.sh | bash',
-      note: 'Vanilla hermes-agent unlocks sessions, skills, memory, jobs, and config automatically — no fork required',
+      note: 'Hermes Agent gốc tự mở khóa sessions, skills, memory, jobs và config — không cần fork',
     },
     {
-      title: 'Set up your agent',
+      title: 'Thiết lập tác nhân',
       command: 'hermes setup',
-      note: 'Pick your providers once; Hermes Agent stores them under ~/.hermes',
+      note: 'Chọn nhà cung cấp một lần; Hermes Agent lưu vào ~/.hermes',
     },
     {
-      title: 'Start the gateway',
+      title: 'Khởi động gateway',
       command: 'hermes gateway run',
-      note: 'This starts the HTTP API on :8642 for the workspace',
+      note: 'Khởi động HTTP API trên cổng :8642 cho workspace',
     },
   ]
 }
@@ -113,7 +113,7 @@ export function ConnectionStartupScreen({ onConnected }: Props) {
           setServerLog([
             String(
               data.message ||
-                'Auto-started Hermes Agent gateway — reconnecting…',
+                'Đã tự khởi động Hermes Agent gateway — đang kết nối lại…',
             ),
           ])
         }
@@ -169,7 +169,7 @@ export function ConnectionStartupScreen({ onConnected }: Props) {
   const handleAutoStart = async () => {
     setServerStarting(true)
     setServerError(null)
-    setServerLog(['Looking for hermes-agent...'])
+    setServerLog(['Đang tìm hermes-agent...'])
     try {
       const res = await fetch('/api/start-claude', {
         method: 'POST',
@@ -177,8 +177,8 @@ export function ConnectionStartupScreen({ onConnected }: Props) {
       })
       const contentType = res.headers.get('content-type') || ''
       if (!contentType.includes('application/json')) {
-        const msg = `Unexpected response (${res.status})`
-        setServerLog([`Error: ${msg}`])
+        const msg = `Phản hồi không hợp lệ (${res.status})`
+        setServerLog([`Lỗi: ${msg}`])
         setServerError(msg)
         setServerStarting(false)
         return
@@ -187,23 +187,23 @@ export function ConnectionStartupScreen({ onConnected }: Props) {
       const data = (await res.json()) as Record<string, unknown>
       if (res.ok && data.ok) {
         setServerLog([
-          String(data.message || 'Started — waiting for connection...'),
+          String(data.message || 'Đã khởi động — đang chờ kết nối...'),
         ])
         setServerStarting(false)
         return
       }
 
-      const msg = String(data.error || 'Could not find hermes-agent')
+      const msg = String(data.error || 'Không tìm thấy hermes-agent')
       const hint = data.hint ? String(data.hint) : ''
-      setServerLog([`Error: ${msg}`])
-      if (hint) setServerLog((prev) => [...prev, `Hint: ${hint}`])
+      setServerLog([`Lỗi: ${msg}`])
+      if (hint) setServerLog((prev) => [...prev, `Gợi ý: ${hint}`])
       setServerError(msg)
       setServerStarting(false)
       // Show manual steps when auto-start fails
       setShowManual(true)
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err)
-      setServerLog([`Failed: ${msg}`])
+      setServerLog([`Thất bại: ${msg}`])
       setServerError(msg)
       setServerStarting(false)
       setShowManual(true)
@@ -238,7 +238,7 @@ export function ConnectionStartupScreen({ onConnected }: Props) {
           aria-hidden={showFailureState}
         >
           <span className="inline-block h-5 w-5 animate-spin rounded-full border-2 border-white/20 border-t-white/80" />
-          <span>Connecting to your backend...</span>
+          <span>Đang kết nối tới backend của anh/chị...</span>
         </div>
 
         {/* Failure state — setup guide */}
@@ -252,12 +252,12 @@ export function ConnectionStartupScreen({ onConnected }: Props) {
         >
           <div className="w-full rounded-3xl border border-white/10 bg-white/5 p-5 text-left shadow-[0_24px_80px_rgba(0,0,0,0.35)] backdrop-blur-sm">
             <p className="text-base font-medium text-white">
-              Welcome! Let&apos;s connect your backend
+              Chào mừng! Hãy kết nối backend của anh/chị
             </p>
             <p className="mt-2 text-sm leading-6 text-white/60">
-              Hermes Workspace works with any OpenAI-compatible backend. Hermes Agent
-              gateway APIs unlock enhanced features automatically when they are
-              available.
+              Hermes Workspace hoạt động với mọi backend tương thích OpenAI. Các
+              API gateway của Hermes Agent tự mở khóa các tính năng nâng cao khi
+              sẵn sàng.
             </p>
 
             {/* Auto-start section */}
@@ -276,10 +276,10 @@ export function ConnectionStartupScreen({ onConnected }: Props) {
                 {serverStarting ? (
                   <span className="flex items-center justify-center gap-2">
                     <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white/90" />
-                    Detecting...
+                    Đang dò tìm...
                   </span>
                 ) : (
-                  'Auto-Start Hermes Agent Gateway'
+                  'Tự khởi động Hermes Agent Gateway'
                 )}
               </button>
 
@@ -308,7 +308,7 @@ export function ConnectionStartupScreen({ onConnected }: Props) {
                 onClick={() => setShowManual(!showManual)}
                 className="text-xs font-medium text-white/50 transition hover:text-white/70"
               >
-                {showManual ? 'Hide' : 'Show'} manual setup
+                {showManual ? 'Ẩn' : 'Hiện'} cấu hình thủ công
               </button>
               <div className="h-px flex-1 bg-white/10" />
             </div>
@@ -340,7 +340,7 @@ export function ConnectionStartupScreen({ onConnected }: Props) {
                         onClick={() => handleCopy(step.command, idx)}
                         className="shrink-0 rounded-lg border border-white/10 bg-white/5 px-2.5 py-1 text-xs font-medium text-white/60 transition hover:bg-white/10 hover:text-white/80"
                       >
-                        {copiedIdx === idx ? '✓ Copied' : 'Copy'}
+                        {copiedIdx === idx ? '✓ Đã sao chép' : 'Sao chép'}
                       </button>
                     </div>
                     <pre className="mt-2 overflow-x-auto rounded-lg bg-black/40 p-3 font-mono text-xs leading-5 text-white/80">
@@ -356,11 +356,11 @@ export function ConnectionStartupScreen({ onConnected }: Props) {
               {/* Env var hint */}
               <div className="mt-4 rounded-xl border border-white/6 bg-white/3 p-3">
                 <p className="text-xs font-medium text-white/50">
-                  Point{' '}
+                  Trỏ{' '}
                   <code className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-white/70">
                     HERMES_API_URL
                   </code>{' '}
-                  at any OpenAI-compatible backend:
+                  tới backend tương thích OpenAI bất kỳ:
                 </p>
                 <pre className="mt-2 overflow-x-auto font-mono text-xs text-white/60">
                   HERMES_API_URL=http://your-server:8642 pnpm dev
@@ -372,7 +372,7 @@ export function ConnectionStartupScreen({ onConnected }: Props) {
 
         {!showFailureState ? (
           <p className="mt-6 text-xs text-white/45">
-            This page auto-refreshes when a compatible backend is detected
+            Trang này tự làm mới khi phát hiện backend tương thích
           </p>
         ) : null}
       </div>
