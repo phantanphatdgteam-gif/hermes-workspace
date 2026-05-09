@@ -46,7 +46,7 @@ export function AgentChatMessages({
     return (
       <div className="grid min-h-40 place-items-center px-6 py-8">
         <p className="text-center text-sm text-pretty text-primary-700">
-          Start the conversation with this agent.
+          Bắt đầu trò chuyện với tác nhân này.
         </p>
       </div>
     )
@@ -100,8 +100,8 @@ export function AgentChatMessages({
                   )}
                 >
                   <MessageTimestamp timestamp={message.timestamp} />
-                  {message.status === 'sending' ? <span>sending…</span> : null}
-                  {message.status === 'error' ? <span>failed</span> : null}
+                  {message.status === 'sending' ? <span>đang gửi…</span> : null}
+                  {message.status === 'error' ? <span>lỗi</span> : null}
                 </div>
               </div>
             </motion.div>
@@ -119,7 +119,7 @@ export function AgentChatMessages({
             <span className="absolute inline-flex size-full animate-ping rounded-full bg-primary-500/60" />
             <span className="relative inline-flex size-2 rounded-full bg-primary-600" />
           </span>
-          Agent is typing…
+          Tác nhân đang soạn tin…
         </motion.div>
       ) : null}
 

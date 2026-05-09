@@ -67,7 +67,7 @@ function toChatMessages(messages: Array<ChatMessage>): Array<AgentChatMessage> {
 }
 
 function buildDemoReply(agentName: string, text: string): string {
-  return `${agentName} (demo): Received "${text}". Hermes Agent is unavailable, so this is a simulated response.`
+  return `${agentName} (thử nghiệm): Đã nhận "${text}". Hermes Agent không khả dụng, đây là phản hồi mô phỏng.`
 }
 
 export function AgentChatModal({
@@ -135,7 +135,7 @@ export function AgentChatModal({
         }
       } catch (error) {
         const message =
-          error instanceof Error ? error.message : 'Unable to load chat history'
+          error instanceof Error ? error.message : 'Không tải được lịch sử chat'
         setErrorMessage(message)
         if (messagesRef.current.length === 0) {
           setIsDemoMode(true)
@@ -143,7 +143,7 @@ export function AgentChatModal({
             {
               id: `demo-intro-${sessionKey}`,
               role: 'agent',
-              text: 'Hermes Agent is unavailable. Running in demo mode with simulated responses.',
+              text: 'Hermes Agent không khả dụng. Đang chạy chế độ thử nghiệm với phản hồi mô phỏng.',
               timestamp: Date.now(),
             },
           ])
@@ -281,7 +281,7 @@ export function AgentChatModal({
       await loadHistory()
     } catch (error) {
       const messageText =
-        error instanceof Error ? error.message : 'Unable to send message'
+        error instanceof Error ? error.message : 'Không gửi được tin nhắn'
 
       setMessages(function markFailed(previous) {
         return previous.map(function mapMessage(entry) {
