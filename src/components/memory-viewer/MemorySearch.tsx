@@ -32,7 +32,7 @@ function MemorySearch({
           onChange={function onChangeQuery(event) {
             onQueryChange(event.target.value)
           }}
-          placeholder="Search across MEMORY.md and memory/*.md"
+          placeholder="Tìm trong MEMORY.md và memory/*.md"
           className="h-9 w-full rounded-lg border border-primary-200 bg-primary-50 pr-3 pl-9 text-sm text-primary-900 outline-none focus:border-accent-500/40"
         />
       </label>
@@ -40,11 +40,11 @@ function MemorySearch({
         <div className="mt-2 rounded-lg border border-primary-200 bg-primary-50 px-2 py-1.5">
           {searching ? (
             <p className="text-xs text-primary-600 text-pretty">
-              Searching memory files...
+              Đang tìm trong tập tin bộ nhớ...
             </p>
           ) : results.length === 0 ? (
             <p className="text-xs text-primary-600 text-pretty">
-              No matches found.
+              Không tìm thấy kết quả nào.
             </p>
           ) : (
             <div className="max-h-44 space-y-1 overflow-y-auto">

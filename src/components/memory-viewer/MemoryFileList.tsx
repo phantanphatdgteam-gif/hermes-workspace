@@ -76,7 +76,7 @@ function MemoryFileList({
           <div className="flex min-w-0 items-center gap-2">
             <HugeiconsIcon icon={BrainIcon} size={20} strokeWidth={1.5} />
             <h2 className="truncate text-sm font-medium text-balance">
-              Memory Files
+              Tập tin bộ nhớ
             </h2>
           </div>
           <div className="flex items-center gap-1">
@@ -84,7 +84,7 @@ function MemoryFileList({
               size="icon-sm"
               variant="ghost"
               onClick={onRefresh}
-              aria-label="Refresh memory files"
+              aria-label="Tải lại danh sách bộ nhớ"
             >
               <HugeiconsIcon icon={RefreshIcon} size={20} strokeWidth={1.5} />
             </Button>
@@ -92,7 +92,7 @@ function MemoryFileList({
               size="icon-sm"
               variant="ghost"
               onClick={onToggleCollapse}
-              aria-label="Collapse memory file list"
+              aria-label="Thu gọn danh sách bộ nhớ"
               className="hidden lg:inline-flex"
             >
               <HugeiconsIcon
@@ -106,8 +106,8 @@ function MemoryFileList({
         </div>
         <p className="text-xs text-primary-600 text-pretty">
           {isDemo
-            ? 'Demo mode enabled because memory API data is unavailable.'
-            : 'Browse MEMORY.md and daily notes in memory/ or memories/.'}
+            ? 'Đã bật chế độ thử nghiệm vì dữ liệu bộ nhớ không khả dụng.'
+            : 'Duyệt MEMORY.md và ghi chú hàng ngày trong memory/ hoặc memories/.'}
         </p>
       </div>
 
@@ -115,7 +115,7 @@ function MemoryFileList({
         <ScrollAreaViewport className="px-2 py-2">
           {loading ? (
             <div className="rounded-lg border border-primary-200 bg-primary-50 px-3 py-2 text-xs text-primary-600 text-pretty">
-              Loading memory files...
+              Đang tải tập tin bộ nhớ...
             </div>
           ) : null}
           {error ? (
@@ -144,7 +144,7 @@ function MemoryFileList({
                 </div>
                 {groups.length === 0 ? (
                   <div className="px-2 py-1.5 text-xs text-primary-500 text-pretty">
-                    No daily memory files found.
+                    Không tìm thấy tập tin bộ nhớ nào.
                   </div>
                 ) : (
                   groups.map(function renderGroup(group) {
