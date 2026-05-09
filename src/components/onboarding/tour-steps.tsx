@@ -5,7 +5,7 @@ export const tourSteps: Array<Step> = [
   {
     target: 'body',
     placement: 'center',
-    title: 'Welcome to Hermes Workspace! ⚕',
+    title: 'Chào mừng đến với Hermes Workspace! ⚕',
     content: (
       <div
         style={{
@@ -21,8 +21,8 @@ export const tourSteps: Array<Step> = [
           style={{ width: 48, height: 48, borderRadius: 12 }}
         />
         <p style={{ textAlign: 'center', margin: 0 }}>
-          Your AI-powered command center for managing agents, chats, files, and
-          more. Let&apos;s take a quick tour!
+          Trung tâm điều khiển AI của anh/chị: quản lý tác nhân, trò chuyện,
+          tập tin và nhiều hơn nữa. Cùng đi tham quan nhanh nhé!
         </p>
       </div>
     ),
@@ -32,72 +32,72 @@ export const tourSteps: Array<Step> = [
   {
     target: '[data-tour="sidebar-container"]',
     placement: 'right',
-    title: 'Sidebar Navigation',
+    title: 'Thanh điều hướng',
     content:
-      'Navigate between all your tools here. Collapse/expand sections to customize your workspace.',
+      'Chuyển qua lại giữa các công cụ tại đây. Thu gọn hoặc mở rộng các nhóm để tùy chỉnh không gian làm việc.',
   },
   // Step 3: New Session
   {
     target: '[data-tour="new-session"]',
     placement: 'right',
-    title: 'Start a New Chat',
+    title: 'Bắt đầu phiên chat mới',
     content:
-      'Click here to start a new AI chat session. Each conversation is saved automatically.',
+      'Bấm vào đây để mở phiên trò chuyện AI mới. Mỗi cuộc trò chuyện được lưu tự động.',
   },
   // Step 4: Dashboard
   {
     target: '[data-tour="dashboard"]',
     placement: 'right',
-    title: 'Your Dashboard',
+    title: 'Bảng điều khiển',
     content:
-      'Your overview of sessions, usage, and activity. See everything at a glance.',
+      'Tổng quan về phiên, mức sử dụng và hoạt động — mọi thứ trong một màn hình.',
   },
   // Step 5: Agent Hub
   {
     target: '[data-tour="agent-hub"]',
     placement: 'right',
-    title: 'Agent Hub',
+    title: 'Trung tâm tác nhân',
     content:
-      'Manage your AI agents and configurations. Create custom agents with specialized behaviors.',
+      'Quản lý tác nhân AI và cấu hình. Tạo tác nhân tùy chỉnh với hành vi chuyên biệt.',
   },
   // Step 7: Skills
   {
     target: '[data-tour="skills"]',
     placement: 'right',
-    title: 'Skills Library',
+    title: 'Thư viện kỹ năng',
     content:
-      'Browse and install agent skills to extend capabilities. Add new tools and abilities to your agents.',
+      'Duyệt và cài đặt kỹ năng để mở rộng khả năng tác nhân — thêm công cụ và chức năng mới.',
   },
   // Step 8: Terminal
   {
     target: '[data-tour="terminal"]',
     placement: 'right',
-    title: 'Built-in Terminal',
+    title: 'Terminal tích hợp',
     content:
-      'Built-in terminal for quick commands. Execute shell commands without leaving Hermes Workspace.',
+      'Terminal sẵn có để chạy lệnh nhanh, không cần rời khỏi Hermes Workspace.',
   },
   // Step 9: Usage Meter (in header)
   {
     target: '[data-tour="usage-meter"]',
     placement: 'bottom',
-    title: 'Usage Monitor',
+    title: 'Theo dõi mức sử dụng',
     content:
-      'Monitor your AI provider usage in real-time. Track costs and API consumption.',
+      'Theo dõi mức sử dụng nhà cung cấp AI theo thời gian thực — chi phí và mức tiêu thụ API.',
   },
   // Step 10: Settings
   {
     target: '[data-tour="settings"]',
     placement: 'right',
-    title: 'Settings & Customization',
+    title: 'Cấu hình & Tùy chỉnh',
     content:
-      'Configure providers, themes, accent colors, and more. Make Hermes Workspace yours.',
+      'Cấu hình nhà cung cấp, chủ đề, màu nhấn và nhiều hơn nữa — biến Hermes Workspace thành của riêng anh/chị.',
   },
   // Step 11: Finish
   {
     target: 'body',
     placement: 'center',
-    title: "You're all set! 🎉",
+    title: "Mọi thứ đã sẵn sàng! 🎉",
     content:
-      'Start chatting with your AI, explore the tools, and customize Hermes Workspace to fit your workflow. Need help? Press ? to see all keyboard shortcuts.',
+      'Bắt đầu trò chuyện với AI, khám phá các công cụ và tùy chỉnh Hermes Workspace theo phong cách làm việc của anh/chị. Cần trợ giúp? Bấm ? để xem các phím tắt.',
   },
 ]

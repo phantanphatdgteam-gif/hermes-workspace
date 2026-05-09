@@ -160,11 +160,11 @@ export function OnboardingTour() {
       callback={handleJoyrideCallback}
       styles={styles}
       locale={{
-        back: 'Back',
-        close: 'Close',
-        last: 'Done',
-        next: 'Next',
-        skip: 'Skip tour',
+        back: 'Quay lại',
+        close: 'Đóng',
+        last: 'Hoàn tất',
+        next: 'Tiếp theo',
+        skip: 'Bỏ qua tour',
       }}
       floaterProps={{
         disableAnimation: false,
