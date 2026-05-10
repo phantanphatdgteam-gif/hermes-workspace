@@ -267,6 +267,7 @@ export function PromptsScreen() {
 
       <button
         type="button"
+        aria-label="Quick use first favorite prompt"
         onClick={() => {
           if (!favoritePrompts[0]) return
           handleUsePrompt(favoritePrompts[0])

@@ -1,6 +1,6 @@
 import type { PromptTemplate } from './prompt-library'
 
-const VARIABLE_PATTERN = /\{\{\s*([a-zA-Z0-9_.-]+)\s*\}\}/g
+export const VARIABLE_PATTERN = /\{\{\s*([a-zA-Z0-9_.-]+)\s*\}\}/g
 
 export const CHAT_PENDING_PROMPT_STORAGE_KEY = 'hermes-chat-pending-prompt'
 

@@ -13,7 +13,12 @@ import {
 } from '@/components/ui/alert-dialog'
 import { CodeBlock } from '@/components/prompt-kit/code-block'
 import type { PromptTemplate } from '@/lib/prompt-library'
-import { extractVariables, fillVariables, validateTemplate } from '@/lib/prompt-utils'
+import {
+  extractVariables,
+  fillVariables,
+  validateTemplate,
+  VARIABLE_PATTERN,
+} from '@/lib/prompt-utils'
 
 type PromptEditorProps = {
   open: boolean
@@ -71,7 +76,7 @@ export function PromptEditor({
   const variableNames = useMemo(() => extractVariables(body), [body])
 
   const highlightedBody = useMemo(
-    () => body.replaceAll(/\{\{\s*([a-zA-Z0-9_.-]+)\s*\}\}/g, '[[ $1 ]]'),
+    () => body.replaceAll(VARIABLE_PATTERN, '[[ $1 ]]'),
     [body],
   )
 
