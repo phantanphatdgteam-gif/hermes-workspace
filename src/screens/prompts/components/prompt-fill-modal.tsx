@@ -93,7 +93,7 @@ export function PromptFillModal({
             <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-primary-500">
               Preview
             </p>
-            <pre className="max-h-44 overflow-auto rounded-lg border border-primary-200 bg-primary-100/50 p-3 text-xs text-primary-800 whitespace-pre-wrap">
+            <pre className="max-h-44 overflow-auto whitespace-pre-wrap rounded-lg border border-primary-200 bg-primary-100/50 p-3 text-xs text-primary-800">
               {preview}
             </pre>
           </div>

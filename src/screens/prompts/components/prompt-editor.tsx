@@ -173,7 +173,7 @@ export function PromptEditor({
                   <p className="mb-1 text-xs font-semibold uppercase text-primary-500">
                     Highlighted placeholders
                   </p>
-                  <pre className="rounded-lg border border-primary-200 bg-primary-100/50 p-3 text-xs text-primary-700 whitespace-pre-wrap">
+                  <pre className="whitespace-pre-wrap rounded-lg border border-primary-200 bg-primary-100/50 p-3 text-xs text-primary-700">
                     {highlightedBody}
                   </pre>
                 </div>
