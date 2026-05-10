@@ -131,6 +131,11 @@ export function CommandPalette({ pathname, sessions }: CommandPaletteProps) {
       return
     }
 
+    if (command === '/prompts') {
+      void navigate({ to: '/prompts' })
+      return
+    }
+
     if (command === '/mcp') {
       void navigate({ to: '/mcp' })
       return
@@ -213,6 +218,15 @@ export function CommandPalette({ pathname, sessions }: CommandPaletteProps) {
         onSelect: () => void navigate({ to: '/skills' }),
       },
       {
+        id: 'screen-prompts',
+        group: 'Screens',
+        label: 'Prompts',
+        keywords: 'prompt templates prompt library',
+        shortcut: 'Go',
+        icon: CommandLineIcon,
+        onSelect: () => void navigate({ to: '/prompts' }),
+      },
+      {
         id: 'screen-mcp',
         group: 'Screens',
         label: 'MCP',
@@ -292,6 +306,15 @@ export function CommandPalette({ pathname, sessions }: CommandPaletteProps) {
         shortcut: 'Run',
         icon: CommandLineIcon,
         onSelect: () => runSlashCommand('/skills'),
+      },
+      {
+        id: 'slash-prompts',
+        group: 'Slash Commands',
+        label: '/prompts',
+        keywords: 'open prompt generation library',
+        shortcut: 'Run',
+        icon: CommandLineIcon,
+        onSelect: () => runSlashCommand('/prompts'),
       },
       {
         id: 'slash-mcp',

@@ -102,6 +102,7 @@ import { useResearchCard } from '@/hooks/use-research-card'
 import { useTapDebug } from '@/hooks/use-tap-debug'
 import { useChatMode } from '@/hooks/use-chat-mode'
 import { useChatActivityStore, type AgentActivity } from '@/stores/chat-activity-store'
+import { consumeQueuedPromptForChatInsert } from '@/lib/prompt-utils'
 
 type ChatScreenProps = {
   activeFriendlyId: string
@@ -2267,6 +2268,11 @@ export function ChatScreen({
         return true
       }
 
+      if (trimmedCommand === '/prompts') {
+        navigate({ to: '/prompts' })
+        return true
+      }
+
       if (trimmedCommand === '/save') {
         const exported = exportConversationTranscript({
           sessionLabel: activeFriendlyId || 'conversation',
@@ -2456,6 +2462,12 @@ export function ChatScreen({
     window.sessionStorage.removeItem(CHAT_PENDING_COMMAND_STORAGE_KEY)
     runPaletteSlashCommand(pendingCommand)
   }, [runPaletteSlashCommand])
+
+  useEffect(() => {
+    const pendingPrompt = consumeQueuedPromptForChatInsert()
+    if (!pendingPrompt) return
+    composerHandleRef.current?.setValue(`${pendingPrompt} `)
+  }, [])
 
   const toggleSidebar = useWorkspaceStore((s) => s.toggleSidebar)
 

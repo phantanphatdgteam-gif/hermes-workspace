@@ -15,6 +15,7 @@ import {
   PuzzleIcon,
   Rocket01Icon,
   Settings01Icon,
+  SparklesIcon,
   UserGroupIcon,
   UserMultipleIcon,
 } from '@hugeicons/core-free-icons'
@@ -98,6 +99,13 @@ export const MOBILE_HAMBURGER_NAV_ITEMS = [
     icon: PuzzleIcon,
     to: '/skills',
     match: (p: string) => p.startsWith('/skills'),
+  },
+  {
+    id: 'prompts',
+    label: 'Prompts',
+    icon: SparklesIcon,
+    to: '/prompts',
+    match: (p: string) => p.startsWith('/prompts'),
   },
   {
     id: 'mcp',

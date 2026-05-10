@@ -20,6 +20,7 @@ describe('DEFAULT_SLASH_COMMANDS', () => {
       '/model',
       '/save',
       '/skills',
+      '/prompts',
       '/plugins',
       '/skin',
       '/help',

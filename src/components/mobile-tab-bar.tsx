@@ -12,6 +12,7 @@ import {
   PuzzleIcon,
   Rocket01Icon,
   Settings01Icon,
+  SparklesIcon,
   UserGroupIcon,
 } from '@hugeicons/core-free-icons'
 import {
@@ -109,6 +110,13 @@ export const MOBILE_NAV_TABS: Array<TabItem> = [
     icon: PuzzleIcon,
     to: '/skills',
     match: (p) => p.startsWith('/skills'),
+  },
+  {
+    id: 'prompts',
+    label: 'Prompts',
+    icon: SparklesIcon,
+    to: '/prompts',
+    match: (p) => p.startsWith('/prompts'),
   },
   {
     id: 'mcp',

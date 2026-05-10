@@ -18,6 +18,7 @@ import {
   PencilEdit02Icon,
   PuzzleIcon,
   Rocket01Icon,
+  SparklesIcon,
   Search01Icon,
   Settings01Icon,
   Sun02Icon,
@@ -584,11 +585,12 @@ function ChatSidebarComponent({
   const isJobsActive = pathname === '/jobs'
   const isMemoryActive = pathname === '/memory'
   const isTasksActive = pathname === '/tasks'
+  const isPromptsActive = pathname === '/prompts'
   const isConductorActive = pathname === '/conductor'
   const isOperationsActive = pathname === '/operations'
   const isSwarmActive = pathname === '/swarm' || pathname === '/swarm2'
   const mainRoutes = ['/chat', '/new', '/files', '/terminal']
-  const knowledgeRoutes = ['/memory', '/skills']
+  const knowledgeRoutes = ['/memory', '/skills', '/prompts']
   const systemRoutes = ['/settings', '/logs']
 
   useEffect(() => {
@@ -863,6 +865,13 @@ function ChatSidebarComponent({
       label: t('nav.skills'),
       active: isSkillsActive,
       dataTour: 'skills',
+    },
+    {
+      kind: 'link',
+      to: '/prompts',
+      icon: SparklesIcon,
+      label: t('nav.prompts'),
+      active: isPromptsActive,
     },
     {
       kind: 'link',

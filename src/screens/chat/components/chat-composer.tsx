@@ -7,10 +7,12 @@ import {
   Cancel01Icon,
   Delete01Icon,
   Mic01Icon,
+  SparklesIcon,
   StopIcon,
 } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useNavigate } from '@tanstack/react-router'
 import {
   memo,
   useCallback,
@@ -57,6 +59,9 @@ import {
   emitSearchModalEvent,
 } from '@/hooks/use-search-modal'
 import { setLocalModelOverride } from '@/screens/chat/local-model-override'
+import { usePromptLibraryStore } from '@/stores/prompt-library-store'
+import { PromptFillModal } from '@/screens/prompts/components/prompt-fill-modal'
+import type { PromptTemplate } from '@/lib/prompt-library'
 
 type ChatComposerAttachment = {
   id: string
@@ -801,6 +806,7 @@ function ChatComposerComponent({
   embedded = false,
   hideModelSelector = false,
 }: ChatComposerProps) {
+  const navigate = useNavigate()
   const queryClient = useQueryClient()
   const mobileKeyboardInset = useWorkspaceStore((s) => s.mobileKeyboardInset)
   const mobileComposerFocused = useWorkspaceStore(
@@ -840,6 +846,10 @@ function ChatComposerComponent({
   const [isProviderSwitcherExpanded, setIsProviderSwitcherExpanded] =
     useState(false)
   const [isMobileActionsMenuOpen, setIsMobileActionsMenuOpen] = useState(false)
+  const [isPromptPickerOpen, setIsPromptPickerOpen] = useState(false)
+  const [promptPickerQuery, setPromptPickerQuery] = useState('')
+  const [selectedPrompt, setSelectedPrompt] = useState<PromptTemplate | null>(null)
+  const [promptFillOpen, setPromptFillOpen] = useState(false)
   const [isWebSearchMode, _setIsWebSearchMode] = useState(false)
   const [isSlashMenuDismissed, setIsSlashMenuDismissed] = useState(false)
   const [modelNotice, setModelNotice] = useState<ModelSwitchNotice | null>(null)
@@ -871,11 +881,29 @@ function ChatComposerComponent({
   const workspaceMenuRef = useRef<HTMLDivElement | null>(null)
   const thinkingMenuRef = useRef<HTMLDivElement | null>(null)
   const controlsMenuRef = useRef<HTMLDivElement | null>(null)
+  const promptPickerRef = useRef<HTMLDivElement | null>(null)
   const composerWrapperRef = useRef<HTMLDivElement | null>(null)
   const focusFrameRef = useRef<number | null>(null)
 
   // Phase 4.2: Pinned models (kept for future use)
   const { pinned, isPinned, togglePin } = usePinnedModels()
+  const prompts = usePromptLibraryStore((state) => state.prompts)
+  const promptDrafts = usePromptLibraryStore((state) => state.drafts)
+  const loadPrompts = usePromptLibraryStore((state) => state.loadPrompts)
+
+  const favoritePrompts = useMemo(
+    () => prompts.filter((prompt) => prompt.isFavorite),
+    [prompts],
+  )
+  const filteredFavoritePrompts = useMemo(() => {
+    const normalizedQuery = promptPickerQuery.trim().toLowerCase()
+    if (!normalizedQuery) return favoritePrompts
+    return favoritePrompts.filter((prompt) =>
+      `${prompt.title} ${prompt.description || ''} ${prompt.body}`
+        .toLowerCase()
+        .includes(normalizedQuery),
+    )
+  }, [favoritePrompts, promptPickerQuery])
 
   const modelsQuery = useQuery({
     queryKey: ['claude', 'models'],
@@ -1237,19 +1265,26 @@ function ChatComposerComponent({
   }, [draftStorageKey])
 
   useEffect(() => {
+    loadPrompts()
+  }, [loadPrompts])
+
+  useEffect(() => {
     if (
       !isModelMenuOpen &&
       !isProfileMenuOpen &&
       !isThinkingMenuOpen &&
-      !isControlsMenuOpen
+      !isControlsMenuOpen &&
+      !isPromptPickerOpen
     )
       return
     function handleOutsideClick(event: MouseEvent) {
       const target = event.target as Node
+      if (promptPickerRef.current?.contains(target)) return
       if (controlsMenuRef.current?.contains(target)) return
       if (modelSelectorRef.current?.contains(target)) return
       if (profileMenuRef.current?.contains(target)) return
       if (thinkingMenuRef.current?.contains(target)) return
+      setIsPromptPickerOpen(false)
       setIsControlsMenuOpen(false)
       setIsModelMenuOpen(false)
       setIsProviderSwitcherExpanded(false)
@@ -1262,6 +1297,7 @@ function ChatComposerComponent({
       document.removeEventListener('mousedown', handleOutsideClick)
     }
   }, [
+    isPromptPickerOpen,
     isModelMenuOpen,
     isProfileMenuOpen,
     isThinkingMenuOpen,
@@ -1747,6 +1783,21 @@ function ChatComposerComponent({
       focusPrompt()
     },
     [focusPrompt, persistDraft],
+  )
+
+  const applyPromptToComposer = useCallback(
+    (prompt: PromptTemplate) => {
+      const hasVariables = (prompt.variables || []).length > 0
+      if (!hasVariables) {
+        setComposerValue(prompt.body)
+        setIsPromptPickerOpen(false)
+        return
+      }
+      setSelectedPrompt(prompt)
+      setPromptFillOpen(true)
+      setIsPromptPickerOpen(false)
+    },
+    [setComposerValue],
   )
 
   const handleDismissSlashMenu = useCallback(() => {
@@ -2571,6 +2622,79 @@ function ChatComposerComponent({
                     />
                   </Button>
                 </PromptInputAction>
+                <div className="relative" ref={promptPickerRef}>
+                  <PromptInputAction tooltip="Open prompt library">
+                    <Button
+                      size="icon-sm"
+                      variant="ghost"
+                      className="rounded-lg text-primary-500 hover:bg-primary-100 dark:hover:bg-primary-800 hover:text-primary-500"
+                      aria-label="Open prompt library"
+                      onClick={() => {
+                        setIsPromptPickerOpen((open) => !open)
+                        setPromptPickerQuery('')
+                      }}
+                    >
+                      <HugeiconsIcon
+                        icon={SparklesIcon}
+                        size={20}
+                        strokeWidth={1.5}
+                      />
+                    </Button>
+                  </PromptInputAction>
+                  {isPromptPickerOpen ? (
+                    <div className="absolute bottom-full left-0 z-[210] mb-2 w-[min(28rem,calc(100vw-2rem))] overflow-hidden rounded-xl border border-primary-200 bg-surface p-2 shadow-xl">
+                      <div className="mb-2 px-1">
+                        <p className="text-[11px] font-semibold uppercase tracking-wide text-primary-500">
+                          Favorite prompts
+                        </p>
+                        <Input
+                          value={promptPickerQuery}
+                          onChange={(event) =>
+                            setPromptPickerQuery(event.target.value)
+                          }
+                          placeholder="Search favorites..."
+                          className="mt-1"
+                        />
+                      </div>
+                      <div className="max-h-64 space-y-1 overflow-y-auto">
+                        {filteredFavoritePrompts.length === 0 ? (
+                          <div className="rounded-lg px-2 py-3 text-xs text-primary-500">
+                            No favorite prompts. Star prompts in the Prompts page.
+                          </div>
+                        ) : (
+                          filteredFavoritePrompts.map((prompt) => (
+                            <button
+                              key={prompt.id}
+                              type="button"
+                              className="w-full rounded-lg border border-transparent px-2 py-2 text-left hover:border-primary-200 hover:bg-primary-50"
+                              onClick={() => applyPromptToComposer(prompt)}
+                            >
+                              <p className="text-xs font-semibold text-primary-900">
+                                {prompt.title}
+                              </p>
+                              <p className="line-clamp-2 text-[11px] text-primary-600">
+                                {prompt.description || prompt.body}
+                              </p>
+                            </button>
+                          ))
+                        )}
+                      </div>
+                      <div className="mt-2 border-t border-primary-200 pt-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="w-full"
+                          onClick={() => {
+                            setIsPromptPickerOpen(false)
+                            void navigate({ to: '/prompts' })
+                          }}
+                        >
+                          Open full Prompt Library
+                        </Button>
+                      </div>
+                    </div>
+                  ) : null}
+                </div>
                 {hasDraft && !isLoading && (
                   <PromptInputAction tooltip="Clear draft">
                     <Button
@@ -2968,6 +3092,17 @@ function ChatComposerComponent({
           </>
         )}
       </PromptInput>
+
+      <PromptFillModal
+        open={promptFillOpen}
+        prompt={selectedPrompt}
+        initialValues={selectedPrompt ? promptDrafts[selectedPrompt.id] || {} : {}}
+        onClose={() => setPromptFillOpen(false)}
+        onInsert={(value) => {
+          setComposerValue(value)
+          setPromptFillOpen(false)
+        }}
+      />
 
       {/* Fullscreen image preview overlay — portaled to body to escape stacking context */}
       {previewImage &&
